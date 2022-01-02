@@ -1,71 +1,49 @@
 import React, { useState } from "react";
 import { FlatList, View, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 import Header from "../../components/header";
 import TaskForm from "./TaskForm";
 import TaskTile from "./TaskTile";
 import FloatingBtn from "../../components/header/FloatingBtn";
 import CountingTask from "../../components/header/CountingTask";
 
+import { toggleTask, deleteTask } from "../../redux/action";
+import { getTask } from "../../redux/selectors";
+import { useDispatch } from "react-redux";
+
 export default function TasksScreen() {
   // Liste de taches
   // State pour garder en mémoire les taches
-  const [tasks, setTasks] = useState([]);
   const [isFormVisible, setisFormVisible] = useState(false);
+
+  const tasks = useSelector(getTask); // pour avoir accès au store
+  console.log(tasks);
+  const dispatch = useDispatch(toggleTask, deleteTask);
 
   // item = { title: "Hello World", isCompleted: false, }
   const renderItem = ({ item }) => {
     return (
       <TaskTile
-        task={item}
-        onUpdateTask={onUpdateTask}
         onDeleteTask={onDeleteTask}
+        onUpdateTask={onUpdateTask}
+        task={item}
       />
     );
   };
   // Ajouter une fonction pour ajouter une tâche au state
   // passer cette fonction à notre formulaire
-  const onAddTask = (title) => {
-    setTasks([
-      ...tasks,
-      {
-        id: Date.now(),
-        title,
-        isCompleted: false,
-      },
-    ]);
-  };
-
-  const onUpdateTask = (id) => {
-    let newTasks = [];
-    tasks.forEach((t) => {
-      if (t.id !== id) {
-        newTasks.push(t);
-        return;
-      }
-      newTasks.push({
-        id,
-        title: t.title,
-        isCompleted: !t.isCompleted,
-      });
-    });
-    setTasks(newTasks);
-  };
-
-  const onDeleteTask = (id) => {
-    let newTasks = [];
-    tasks.forEach((t) => {
-      if (t.id !== id) {
-        newTasks.push(t);
-        return;
-      }
-    });
-    setTasks(newTasks);
-  };
 
   const _toggleForm = () => {
     setisFormVisible(!isFormVisible);
   };
 
+  const onUpdateTask = (id) => {
+    dispatch(toggleTask(id));
+  };
+
+  const onDeleteTask = (id) => {
+    dispatch(deleteTask(id));
+  };
   // 2xTaksCounter => props nb & title
   // TaskList => return FlatList => TaskTile
 
@@ -77,7 +55,7 @@ export default function TasksScreen() {
         ListHeaderComponent={
           <>
             <Header />
-            {isFormVisible && <TaskForm onAddTask={onAddTask} />}
+            {isFormVisible && <TaskForm />}
             <View style={styles.containerCounters}>
               <CountingTask nb={tasks.length} title={"Tâche crées"} />
               <CountingTask

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, Button, View } from "react-native";
+import { useDispatch } from "react-redux";
 
-export default function TaskForm({ onAddTask }) {
+import { addTask } from "../../redux/action";
+
+export default function TaskForm() {
   const [newTitle, setNewTitle] = useState("");
+  const dispatch = useDispatch();
 
   const onChangeText = (val) => {
     setNewTitle(val);
@@ -10,9 +14,11 @@ export default function TaskForm({ onAddTask }) {
 
   const onAddNewTask = () => {
     if (newTitle === "") return;
-    onAddTask(newTitle);
+
+    dispatch(addTask(newTitle));
     setNewTitle("");
   };
+
   return (
     <View style={styles.container}>
       <TextInput
