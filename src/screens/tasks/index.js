@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FlatList, View, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
 import Header from "../../components/header";
 import TaskForm from "./TaskForm";
 import TaskTile from "./TaskTile";
 import FloatingBtn from "../../components/header/FloatingBtn";
 import CountingTask from "../../components/header/CountingTask";
 
+import { useSelector } from "react-redux";
 import { toggleTask, deleteTask } from "../../redux/action";
 import { getTask } from "../../redux/selectors";
 import { useDispatch } from "react-redux";
@@ -17,8 +17,7 @@ export default function TasksScreen() {
   const [isFormVisible, setisFormVisible] = useState(false);
 
   const tasks = useSelector(getTask); // pour avoir accès au store
-  console.log(tasks);
-  const dispatch = useDispatch(toggleTask, deleteTask);
+  const dispatch = useDispatch(toggleTask, deleteTask); // initialisation de dispatch pour avoir accés aux actions
 
   // item = { title: "Hello World", isCompleted: false, }
   const renderItem = ({ item }) => {
@@ -38,11 +37,11 @@ export default function TasksScreen() {
   };
 
   const onUpdateTask = (id) => {
-    dispatch(toggleTask(id));
+    dispatch(toggleTask(id)); // utilisation de dispatch pour l'action toggleTask
   };
 
   const onDeleteTask = (id) => {
-    dispatch(deleteTask(id));
+    dispatch(deleteTask(id)); // utilisation de dispatch pour l'action onDeleteTask
   };
   // 2xTaksCounter => props nb & title
   // TaskList => return FlatList => TaskTile

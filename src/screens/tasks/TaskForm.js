@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, Button, View } from "react-native";
-import { useDispatch } from "react-redux";
 
-import { addTask } from "../../redux/action";
+import { useDispatch } from "react-redux"; // importation de useDispatch depuis redux
+import { addTask } from "../../redux/action"; // importation de l'action nécessaire
 
 export default function TaskForm() {
   const [newTitle, setNewTitle] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // initialisation de dispatch
 
   const onChangeText = (val) => {
     setNewTitle(val);
@@ -15,7 +15,7 @@ export default function TaskForm() {
   const onAddNewTask = () => {
     if (newTitle === "") return;
 
-    dispatch(addTask(newTitle));
+    dispatch(addTask(newTitle)); // utilisation de dispatch avec l'action directement en paramêtre
     setNewTitle("");
   };
 
