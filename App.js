@@ -1,14 +1,16 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import TasksScreen from "./src/screens/tasks";
+import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import { store } from "./src/redux/store";
+import { store } from "./redux/store";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import AppNavigation from "./navigation";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <TasksScreen />
-      </SafeAreaView>
+      <AppNavigation />
     </Provider>
   );
 }
@@ -16,6 +18,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

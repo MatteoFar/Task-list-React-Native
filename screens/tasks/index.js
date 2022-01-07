@@ -51,8 +51,9 @@ export default function TasksScreen() {
   return (
     <>
       <FlatList
+        style={styles.container}
         ListHeaderComponent={
-          <>
+          <View>
             <Header />
             {isFormVisible && <TaskForm />}
             <View style={styles.containerCounters}>
@@ -62,7 +63,7 @@ export default function TasksScreen() {
                 title={"Tâche éffectuées"}
               />
             </View>
-          </>
+          </View>
         }
         contentContainerStyle={{ flexGrow: 1 }}
         data={tasks}
@@ -75,6 +76,9 @@ export default function TasksScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
   containerCounters: {
     flexDirection: "row",
     justifyContent: "space-between",

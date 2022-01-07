@@ -17,8 +17,8 @@ export default function TaskTile({ task, onUpdateTask, onDeleteTask }) {
           style={styles.check}
           source={
             task.isCompleted
-              ? require("../../../assets/icon_check_circle.png")
-              : require("../../../assets/icon_circle.png")
+              ? require("../../assets/icon_check_circle.png")
+              : require("../../assets/icon_circle.png")
           }
         />
         <Text style={styles.title}>{task.title}</Text>
@@ -26,7 +26,7 @@ export default function TaskTile({ task, onUpdateTask, onDeleteTask }) {
       <Pressable onPress={_onDeleteTask}>
         <Image
           style={styles.check}
-          source={require("../../../assets/icon_delete.png")}
+          source={require("../../assets/icon_delete.png")}
         />
       </Pressable>
     </View>
